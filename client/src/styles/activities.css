@@ -1,0 +1,782 @@
+/* ============================================
+   NexusVital — Activities Page
+   ============================================ */
+
+.activities-page {
+  padding: var(--space-8);
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  animation: fadeIn 0.4s ease-out;
+}
+
+/* ---- Page Header ---- */
+.activities-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-6);
+  animation: fadeInDown 0.5s ease-out;
+}
+
+.activities-header h1 {
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.activities-header .btn-new-activity {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  background: var(--gradient-primary);
+  background-size: 200% 200%;
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-lg);
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  transition: transform var(--transition-fast),
+              box-shadow var(--transition-base);
+}
+
+.activities-header .btn-new-activity:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-glow-accent);
+  animation: gradientShift 3s ease infinite;
+}
+
+/* ---- Stats Summary ---- */
+.activity-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+  animation: fadeInUp 0.5s ease-out both;
+}
+
+.activity-stats .stat {
+  text-align: center;
+  padding: var(--space-4);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--transition-base),
+              box-shadow var(--transition-base);
+}
+
+.activity-stats .stat::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-glass);
+  pointer-events: none;
+}
+
+.activity-stats .stat:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-glow);
+}
+
+.activity-stats .stat-number {
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  display: block;
+  position: relative;
+}
+
+.activity-stats .stat-text {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  position: relative;
+}
+
+/* ---- Filter Bar ---- */
+.activities-filters {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+  padding: var(--space-3);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  flex-wrap: wrap;
+  animation: fadeInUp 0.45s ease-out both;
+  animation-delay: 0.05s;
+  position: relative;
+  overflow: hidden;
+}
+
+.activities-filters::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-glass);
+  pointer-events: none;
+}
+
+.filter-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-bg-glass);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  color: var(--color-text-secondary);
+  font-family: var(--font-family);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  position: relative;
+  z-index: 1;
+}
+
+.filter-btn:hover {
+  background: var(--color-bg-glass-hover);
+  color: var(--color-text-primary);
+  border-color: var(--color-border-hover);
+}
+
+.filter-btn.active {
+  background: rgba(99, 102, 241, 0.15);
+  border-color: var(--color-border-accent);
+  color: var(--color-accent-primary-light);
+}
+
+/* Category-specific filter pills */
+.filter-btn.ejercicio.active   { background: rgba(239, 68, 68, 0.15); border-color: var(--color-ejercicio); color: var(--color-ejercicio); }
+.filter-btn.dieta.active       { background: rgba(16, 185, 129, 0.15); border-color: var(--color-dieta); color: var(--color-dieta); }
+.filter-btn.meditacion.active  { background: rgba(139, 92, 246, 0.15); border-color: var(--color-meditacion); color: var(--color-meditacion); }
+.filter-btn.mindfulness.active { background: rgba(6, 182, 212, 0.15); border-color: var(--color-mindfulness); color: var(--color-mindfulness); }
+
+.activities-filters .filter-date {
+  margin-left: auto;
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-bg-glass);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  color: var(--color-text-secondary);
+  font-family: var(--font-family);
+  font-size: var(--font-size-xs);
+  cursor: pointer;
+  outline: none;
+  transition: all var(--transition-base);
+  position: relative;
+  z-index: 1;
+}
+
+.activities-filters .filter-date:focus {
+  border-color: var(--color-accent-primary);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.activities-filters .search-box {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-bg-glass);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  transition: all var(--transition-base);
+  margin-left: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.activities-filters .search-box:focus-within {
+  border-color: var(--color-accent-primary);
+  background: var(--color-bg-glass-hover);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12), var(--shadow-glow);
+}
+
+.activities-filters .search-box svg {
+  color: var(--color-text-muted);
+  transition: color var(--transition-fast);
+}
+
+.activities-filters .search-box:focus-within svg {
+  color: var(--color-accent-primary-light);
+}
+
+.activities-filters .search-box input {
+  background: transparent;
+  border: none;
+  color: var(--color-text-primary);
+  font-family: var(--font-family);
+  font-size: var(--font-size-xs);
+  outline: none;
+  width: 150px;
+  transition: width var(--transition-base);
+}
+
+.activities-filters .search-box input:focus {
+  width: 200px;
+}
+
+/* ---- Activities Grid ---- */
+.activities-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--space-5);
+  margin-bottom: var(--space-8);
+}
+
+/* ---- Activity Card ---- */
+.activity-card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  overflow: hidden;
+  transition: transform var(--transition-base),
+              box-shadow var(--transition-base),
+              border-color var(--transition-base);
+  animation: fadeInUp 0.5s ease-out both;
+  position: relative;
+}
+
+.activity-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-glass);
+  pointer-events: none;
+}
+
+.activity-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-glow);
+  border-color: var(--color-border-hover);
+}
+
+/* Category accent strip */
+.activity-card.ejercicio   { border-top: 3px solid var(--color-ejercicio); }
+.activity-card.dieta       { border-top: 3px solid var(--color-dieta); }
+.activity-card.meditacion  { border-top: 3px solid var(--color-meditacion); }
+.activity-card.mindfulness { border-top: 3px solid var(--color-mindfulness); }
+
+.activity-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-4) var(--space-2);
+  position: relative;
+}
+
+.activity-card-header .card-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-lg);
+}
+
+.activity-card-header .card-icon.ejercicio   { background: rgba(239, 68, 68, 0.12); color: var(--color-ejercicio); }
+.activity-card-header .card-icon.dieta       { background: rgba(16, 185, 129, 0.12); color: var(--color-dieta); }
+.activity-card-header .card-icon.meditacion  { background: rgba(139, 92, 246, 0.12); color: var(--color-meditacion); }
+.activity-card-header .card-icon.mindfulness { background: rgba(6, 182, 212, 0.12); color: var(--color-mindfulness); }
+
+.activity-card-body {
+  padding: var(--space-2) var(--space-4) var(--space-4);
+  position: relative;
+}
+
+.activity-card-body h3 {
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin: 0 0 var(--space-2);
+}
+
+.activity-card-body p {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin: 0;
+  line-height: var(--line-height-relaxed);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.activity-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--color-border);
+  position: relative;
+}
+
+.activity-type-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.activity-type-badge.ejercicio   { background: rgba(239, 68, 68, 0.1); color: var(--color-ejercicio); }
+.activity-type-badge.dieta       { background: rgba(16, 185, 129, 0.1); color: var(--color-dieta); }
+.activity-type-badge.meditacion  { background: rgba(139, 92, 246, 0.1); color: var(--color-meditacion); }
+.activity-type-badge.mindfulness { background: rgba(6, 182, 212, 0.1); color: var(--color-mindfulness); }
+
+.activity-xp {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-accent-primary-light);
+  background: rgba(99, 102, 241, 0.1);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-full);
+}
+
+.activity-duration {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+/* ---- Activity Form ---- */
+.activity-form {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: var(--space-6);
+  position: relative;
+  overflow: hidden;
+  animation: fadeInUp 0.5s ease-out;
+}
+
+.activity-form::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-glass);
+  pointer-events: none;
+}
+
+.activity-form h2 {
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin: 0 0 var(--space-5);
+  position: relative;
+}
+
+.activity-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+  position: relative;
+}
+
+.activity-form-row.full {
+  grid-template-columns: 1fr;
+}
+
+.activity-form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.activity-form label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+}
+
+.activity-form input,
+.activity-form select,
+.activity-form textarea {
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-bg-glass);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  color: var(--color-text-primary);
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm);
+  outline: none;
+  transition: all var(--transition-base);
+}
+
+.activity-form input:focus,
+.activity-form select:focus,
+.activity-form textarea:focus {
+  border-color: var(--color-accent-primary);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12),
+              var(--shadow-glow);
+}
+
+.activity-form textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* Category selector */
+.activity-form .category-selector {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.activity-form .category-option {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  background: var(--color-bg-glass);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  transition: all var(--transition-base);
+}
+
+.activity-form .category-option:hover {
+  background: var(--color-bg-glass-hover);
+  border-color: var(--color-border-hover);
+}
+
+.activity-form .category-option.selected {
+  border-color: var(--color-accent-primary);
+  background: rgba(99, 102, 241, 0.08);
+  color: var(--color-accent-primary-light);
+}
+
+.activity-form .category-option .cat-icon {
+  font-size: var(--font-size-xl);
+}
+
+/* ---- Timer Component ---- */
+.timer-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--space-8);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  position: relative;
+  overflow: hidden;
+}
+
+.timer-display::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-glass);
+  pointer-events: none;
+}
+
+.timer-display .timer-value {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-6xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  letter-spacing: 0.05em;
+  position: relative;
+  text-shadow: 0 0 20px rgba(99, 102, 241, 0.2);
+}
+
+.timer-display .timer-label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  margin-top: var(--space-2);
+  position: relative;
+}
+
+.timer-controls {
+  display: flex;
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+  position: relative;
+}
+
+.timer-controls button {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: none;
+  font-size: var(--font-size-xl);
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.timer-controls .btn-start {
+  background: var(--gradient-success);
+  color: #fff;
+  box-shadow: 0 0 16px rgba(16, 185, 129, 0.3);
+}
+
+.timer-controls .btn-start:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 24px rgba(16, 185, 129, 0.4);
+}
+
+.timer-controls .btn-pause {
+  background: var(--gradient-warm);
+  color: #fff;
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.3);
+}
+
+.timer-controls .btn-pause:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 24px rgba(245, 158, 11, 0.4);
+}
+
+.timer-controls .btn-stop {
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: var(--color-error);
+}
+
+.timer-controls .btn-stop:hover {
+  transform: scale(1.1);
+  background: rgba(239, 68, 68, 0.25);
+}
+
+/* Timer active ring animation */
+.timer-display.running {
+  animation: glow 2s ease-in-out infinite;
+}
+
+/* ---- Empty State ---- */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-16) var(--space-8);
+  text-align: center;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.empty-state .empty-icon {
+  font-size: var(--font-size-7xl);
+  margin-bottom: var(--space-4);
+  opacity: 0.4;
+  animation: float 4s ease-in-out infinite;
+}
+
+.empty-state h3 {
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin: 0 0 var(--space-2);
+}
+
+.empty-state p {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  max-width: 320px;
+  margin: 0 0 var(--space-6);
+}
+
+.empty-state .btn-empty {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  background: var(--gradient-primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-lg);
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  transition: transform var(--transition-fast),
+              box-shadow var(--transition-base);
+}
+
+.empty-state .btn-empty:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-glow-accent);
+}
+
+/* ---- Card Actions and Buttons ---- */
+.activity-card-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+  justify-content: flex-end;
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-3);
+  position: relative;
+  z-index: 10;
+}
+
+.act-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-md);
+  background: var(--color-bg-glass);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.act-btn:hover {
+  background: var(--color-bg-glass-hover);
+  color: var(--color-text-primary);
+  transform: translateY(-1.5px);
+}
+
+.act-btn--complete {
+  color: var(--color-success);
+  border-color: rgba(16, 185, 129, 0.25);
+}
+
+.act-btn--complete:hover {
+  background: rgba(16, 185, 129, 0.18);
+  border-color: var(--color-success);
+  color: #ffffff;
+}
+
+.act-btn--edit {
+  color: var(--color-info);
+  border-color: rgba(59, 130, 246, 0.25);
+}
+
+.act-btn--edit:hover {
+  background: rgba(59, 130, 246, 0.18);
+  border-color: var(--color-info);
+  color: #ffffff;
+}
+
+.act-btn--delete {
+  color: var(--color-error);
+  border-color: rgba(239, 68, 68, 0.25);
+}
+
+.act-btn--delete:hover {
+  background: rgba(239, 68, 68, 0.18);
+  border-color: var(--color-error);
+  color: #ffffff;
+}
+
+/* ================================================
+   Responsive
+   ================================================ */
+@media (max-width: 768px) {
+  .activities-page {
+    padding: var(--space-5) var(--space-4);
+  }
+
+  .activities-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
+
+  .activity-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .activities-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .activity-form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .activity-form .category-selector {
+    flex-wrap: wrap;
+  }
+
+  .timer-display .timer-value {
+    font-size: var(--font-size-5xl);
+  }
+}
+
+@media (max-width: 480px) {
+  .activities-page {
+    padding: var(--space-4) var(--space-3);
+  }
+
+  .activities-header h1 {
+    font-size: var(--font-size-2xl);
+  }
+
+  .activity-stats {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3);
+  }
+
+  .activities-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .activities-filters .filter-date {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .timer-display .timer-value {
+    font-size: var(--font-size-4xl);
+  }
+
+  .timer-controls button {
+    width: 48px;
+    height: 48px;
+  }
+
+  .activity-form .category-selector {
+    grid-template-columns: 1fr 1fr;
+    display: grid;
+  }
+}
