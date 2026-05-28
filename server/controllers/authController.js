@@ -10,8 +10,8 @@ const sendTokenResponse = (user, statusCode, res) => {
 
   const options = {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'strict',
+    secure: true, // Always true for cross-site cookies
+    sameSite: 'none', // Required for cross-site cookies between different Vercel domains
     maxAge: cookieExpireDays * 24 * 60 * 60 * 1000,
   };
 
@@ -116,8 +116,8 @@ export const login = async (req, res, next) => {
 export const logout = (req, res) => {
   res.cookie('token', 'none', {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'strict',
+    secure: true,
+    sameSite: 'none',
     maxAge: 1, // expire immediately
   });
 
