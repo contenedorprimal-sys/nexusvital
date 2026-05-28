@@ -7,10 +7,13 @@ const errorHandler = (err, req, res, _next) => {
   let error = { ...err };
   error.message = err.message;
 
-  // Log error in development
-  if (process.env.NODE_ENV === 'development') {
-    console.error('❌ Error:', err);
-  }
+  // Log error for debugging (both dev and prod for now)
+  console.error('❌ Error Detalle:', {
+    name: err.name,
+    message: err.message,
+    stack: err.stack,
+    code: err.code
+  });
 
   // Mongoose CastError - invalid ObjectId
   if (err.name === 'CastError') {
