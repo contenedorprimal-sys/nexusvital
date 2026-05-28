@@ -22,6 +22,9 @@ connectDB();
 
 const app = express();
 
+// Trust proxy for express-rate-limit to work on Vercel
+app.set('trust proxy', 1);
+
 // ─── Middleware ─────────────────────────────────────────────
 
 // CORS
